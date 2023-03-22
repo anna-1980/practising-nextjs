@@ -2,7 +2,7 @@
 import SSRPokemonTable from "@/components/SSRPokemonTable";
 
 import { store } from "@/store";
-import { setStartupPokemon } from "../store/searchSlice"; 
+import { setStartupPokemon } from "../../store/searchSlice"; 
 
 export default async function Home() {
   const request = await fetch("http://localhost:3000/api/search");
@@ -11,9 +11,7 @@ export default async function Home() {
   
   return(
     <main>
-     {/* <PokemonTable pokemons={data} /> */}
      < SSRPokemonTable   />
     </main>
   )
 }
-// {JSON.stringify(data)}
