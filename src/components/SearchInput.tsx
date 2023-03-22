@@ -17,21 +17,14 @@ const SearchInput = () => {
   const search = useAppSelector((state) => state.search.search);
   const startupPokemon = useAppSelector((state) => state.search.startupPokemon);
 
-//   const data = useAppSelector(
-//     (state) =>
-//       state.pokemonApi.queries[`search("${search})")`]?.data as Pokemon[]
-//   );
-
-const data = useAppSelector(
+  const data = useAppSelector(
     (state) =>
       state.pokemonApi.queries[`search("${search}")`]?.data as Pokemon[]
   );
 
-  
   useEffect (() => {
     dispatch(pokemonApi.endpoints.search.initiate(search));
-    console.log("search", search.length)
-  }, [dispatch, search]);
+  }, [dispatch, search, data]);
 
   return (
     <div>
@@ -40,7 +33,7 @@ const data = useAppSelector(
         value={search}
         onChange={(e) => dispatch(setSearch(e.target.value))}
       />
-      {/* <div>{search}</div> */}
+      <div>{search}</div>
 
       <PokemonTable pokemons={search.length ? data ?? [] : startupPokemon} />
     </div>
@@ -48,4 +41,3 @@ const data = useAppSelector(
 };
 
 export default SearchInput;
-
