@@ -39,20 +39,7 @@ const isValidPlaced = (
   return true;
 };
 
-const createRandomPuzzle = () => {
-  let board = [];
-  for (let i = 0; i < 9; i++) {
-    board[i] = Array(9).fill(0);
-  }
-  for (let i = 0; i < 9; i++) {
-    let number = Math.floor(Math.random() * 9) + 1;
-    while (!isValidPlaced(board, 0, i, number)) {
-      number = Math.floor(Math.random() * 9) + 1;
-    }
-    board[0][i] = number;
-  }
-  return board;
-};
+
 
 const Sudoku = () => {
 
@@ -74,9 +61,7 @@ const Sudoku = () => {
   }
     
   }
-
-
-
+ 
   const solve = (grid: any) => {
     for (let row = 0; row < 9; row++) {
       for (let col = 0; col < 9; col++) {
@@ -97,7 +82,26 @@ const Sudoku = () => {
     return true;
   };
 
+ const createInitialSudokuBoard = () => {
+  let board = [];
+  for (let i = 0; i < 9; i++) {
+    board[i] = Array(9).fill(0);
+  }
+  console.log("initialBoard:", board)
+  return board
+ }
 
+  const createRandomPuzzle = () => {
+  let board = createInitialSudokuBoard();
+    for (let i = 0; i < 9; i++) {
+      let number = Math.floor(Math.random() * 9) + 1;
+      while (!isValidPlaced(board, 0, i, number)) {
+        number = Math.floor(Math.random() * 9) + 1;
+      }
+      board[0][i] = number;
+    }
+    return board;
+  };
 
   const createBoard = () => {
     let board = createRandomPuzzle();
