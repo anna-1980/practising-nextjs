@@ -1,44 +1,81 @@
 import { useEffect, useState } from "react";
 import styles from "./Sudoku.module.css";
 
+// https://www.youtube.com/watch?v=YzMEjfQPsfA
+
+// https://www.youtube.com/watch?v=TOI7iGnzHlg
+
+
+const isValidPlaced = (
+  grid: number[][],
+  row: number,
+  col: number,
+  number: number
+) => {
+  // console.log("grid:", grid,"row :", row, "col :", col, number);
+  for (
+    let i = 0;
+    i < 9;
+    i++ //current row from start to finish
+  ) {
+    if (grid[i][col] === number) {
+      return false;
+    }
+  }
+  for (let i = 0; i < 9; i++) {
+    if (grid[row][i] === number) {
+      return false;
+    }
+  }
+  let localBoxRow = row - (row % 3);
+  let localBoxCol = col - (col % 3);
+  for (let i = localBoxRow; i < localBoxRow + 3; i++) {
+    for (let j = localBoxCol; j < localBoxCol + 3; j++) {
+      if (grid[i][j] === number) {
+        return false;
+      }
+    }
+  }
+  return true;
+};
+
+const createRandomPuzzle = () => {
+  let board = [];
+  for (let i = 0; i < 9; i++) {
+    board[i] = Array(9).fill(0);
+  }
+  for (let i = 0; i < 9; i++) {
+    let number = Math.floor(Math.random() * 9) + 1;
+    while (!isValidPlaced(board, 0, i, number)) {
+      number = Math.floor(Math.random() * 9) + 1;
+    }
+    board[0][i] = number;
+  }
+  return board;
+};
+
 const Sudoku = () => {
 
-  const [sudokuArray, setSudokuArray] = useState<number[][]>()
+  const [sudokuArray, setSudokuArray] = useState<number[][]>( )
 
-  
+ function getOriginalCopy (arr:number[][] )  {
+    return JSON.parse(JSON.stringify(arr));
+  }
 
-  const isValidPlaced = (
-    grid: number[][],
-    row: number,
-    col: number,
-    number: number
-  ) => {
-    // console.log("grid:", grid,"row :", row, "col :", col, number);
-    for (
-      let i = 0;
-      i < 9;
-      i++ //current row from start to finish
-    ) {
-      if (grid[i][col] === number) {
-        return false;
-      }
+  const onInputChange = (e: any, row: number, col: number) => {
+    if (sudokuArray){let value = parseInt(e.target.value) || 0, grid = getOriginalCopy(sudokuArray);
+    
+
+    if (value === 0 || value >=1 && value <=9){
+      grid[row][col] = value;
+      console.log(grid[row][col] = value)
     }
-    for (let i = 0; i < 9; i++) {
-      if (grid[row][i] === number) {
-        return false;
-      }
-    }
-    let localBoxRow = row - (row % 3);
-    let localBoxCol = col - (col % 3);
-    for (let i = localBoxRow; i < localBoxRow + 3; i++) {
-      for (let j = localBoxCol; j < localBoxCol + 3; j++) {
-        if (grid[i][j] === number) {
-          return false;
-        }
-      }
-    }
-    return true;
-  };
+    setSudokuArray(grid)
+  }
+    
+  }
+
+
 
   const solve = (grid: any) => {
     for (let row = 0; row < 9; row++) {
@@ -60,20 +97,7 @@ const Sudoku = () => {
     return true;
   };
 
-  const createRandomPuzzle = () => {
-    let board = [];
-    for (let i = 0; i < 9; i++) {
-      board[i] = Array(9).fill(0);
-    }
-    for (let i = 0; i < 9; i++) {
-      let number = Math.floor(Math.random() * 9) + 1;
-      while (!isValidPlaced(board, 0, i, number)) {
-        number = Math.floor(Math.random() * 9) + 1;
-      }
-      board[0][i] = number;
-    }
-    return board;
-  };
+
 
   const createBoard = () => {
     let board = createRandomPuzzle();
@@ -116,9 +140,11 @@ const Sudoku = () => {
                           className={styles["sudoku-board__table-col"]}
                         >
                           <input
-                            value={sudokuArray && sudokuArray[row][col]}
+                            onChange={(e) => onInputChange(e, row, col)}
+                            value={sudokuArray && sudokuArray[row][col] === 0 ? '' : sudokuArray && sudokuArray[row][col]}
                             className={styles["sudoku-board__cell"]}
                             type="text"
+                            disabled={sudokuArray && sudokuArray[row][col] !== 0}
                           />
                         </td>
                       );

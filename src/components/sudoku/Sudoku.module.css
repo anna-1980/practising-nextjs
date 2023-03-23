@@ -62,3 +62,9 @@
     outline: 2px solid  var(--focus-color-border);
     background-color: var(--focus-color-field);
 }
+.sudoku-board__cell:disabled{
+    background-color: rgb(208, 238, 198);
+ 
+}
+
+ 
