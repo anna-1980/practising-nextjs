@@ -1,8 +1,19 @@
+import { useEffect, useState } from "react";
 import styles from "./Sudoku.module.css";
 
 const Sudoku = () => {
-  const isValidPlaced = (grid, row, col, number) => {
-    // console.log(grid, row, col, number);
+
+  const [sudokuArray, setSudokuArray] = useState<number[][]>()
+
+  
+
+  const isValidPlaced = (
+    grid: number[][],
+    row: number,
+    col: number,
+    number: number
+  ) => {
+    // console.log("grid:", grid,"row :", row, "col :", col, number);
     for (
       let i = 0;
       i < 9;
@@ -12,12 +23,12 @@ const Sudoku = () => {
         return false;
       }
     }
-    for(let i = 0; i < 9; i++) {
+    for (let i = 0; i < 9; i++) {
       if (grid[row][i] === number) {
         return false;
       }
     }
-    let localBoxRow = row -(row % 3);
+    let localBoxRow = row - (row % 3);
     let localBoxCol = col - (col % 3);
     for (let i = localBoxRow; i < localBoxRow + 3; i++) {
       for (let j = localBoxCol; j < localBoxCol + 3; j++) {
@@ -38,10 +49,8 @@ const Sudoku = () => {
               grid[row][col] = guess;
               if (solve(grid)) {
                 return true;
-              }  
-                grid[row][col] = 0;
-               
-             
+              }
+              grid[row][col] = 0;
             }
           }
           return false;
@@ -57,41 +66,35 @@ const Sudoku = () => {
       board[i] = Array(9).fill(0);
     }
     for (let i = 0; i < 9; i++) {
-     let  number = Math.floor(Math.random() * 9) + 1;
-        while(!isValidPlaced(board, 0, i, number)) {
-          number = Math.floor(Math.random() * 9) + 1;
+      let number = Math.floor(Math.random() * 9) + 1;
+      while (!isValidPlaced(board, 0, i, number)) {
+        number = Math.floor(Math.random() * 9) + 1;
       }
       board[0][i] = number;
     }
     return board;
   };
-  
-const createBoard = () => {
+
+  const createBoard = () => {
     let board = createRandomPuzzle();
-    // let board = [];
-  
+
     solve(board);
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-        if(Math.random() > 0.3) 
-          board[i][j] = 0;
-        
+        if (Math.random() > 0.3) board[i][j] = 0;
       }
-
     }
     return board;
   };
 
-  let newBoard = createBoard();
+  //  solve(newBoard);
+  // console.log(createBoard());
 
-
-
-
-
-
-
-//  solve(newBoard);
-  console.log(createBoard());
+  useEffect(() => {
+    if(!sudokuArray) {
+    setSudokuArray(createBoard())
+    console.log(sudokuArray)}
+  }, []);
 
   return (
     <div>
@@ -113,6 +116,7 @@ const createBoard = () => {
                           className={styles["sudoku-board__table-col"]}
                         >
                           <input
+                            value={sudokuArray && sudokuArray[row][col]}
                             className={styles["sudoku-board__cell"]}
                             type="text"
                           />
