@@ -8,6 +8,7 @@ import PokemonTable from "./PokemonTable";
 import { pokemonApi } from "@/store/pokemonApi";
 import { Pokemon } from "@/types";
 import { useEffect } from "react";
+import Sudoku from "./sudoku/Sudoku";
 
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
@@ -22,7 +23,7 @@ const SearchInput = () => {
       state.pokemonApi.queries[`search("${search}")`]?.data as Pokemon[]
   );
 
-  useEffect (() => {
+  useEffect(() => {
     dispatch(pokemonApi.endpoints.search.initiate(search));
   }, [dispatch, search, data]);
 
@@ -36,6 +37,8 @@ const SearchInput = () => {
       <div>{search}</div>
 
       <PokemonTable pokemons={search.length ? data ?? [] : startupPokemon} />
+      <hr />
+      <Sudoku />
     </div>
   );
 };

@@ -1,0 +1,64 @@
+
+.sudoku-board{
+    --gap-size: 5px;
+    --cell-margin: 2px;
+    --board-color:  rgb(143, 190, 127);
+    --transparency: 0.1;
+    --focus-color-field:  rgb(248, 238, 217);
+    --focus-color-border:  rgb(255, 193, 48);
+}
+
+.sudoku-board {
+    width: 100%;
+    margin: 0 auto;
+    background-color:var(--board-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sudoku-board__table {
+    width: 100%;
+    display: grid;
+    /* grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr); */
+    /* background-color: rgb(34, 122, 76); */
+    padding: 10px 12px 20px 20px;
+}
+
+.sudoku-board__table-body{
+    /* border: solid 2px rgb(34, 122, 76); */
+   margin: 0 auto;
+   
+
+}
+.sudoku-board__table-row, .sudoku-board__table-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.sudoku-board__table-row:nth-child(3n - 2)  {
+    margin-top: var(--gap-size);
+}
+
+.sudoku-board__table-col:nth-child(3n+1){
+    margin-left: var(--gap-size);
+}
+ 
+.sudoku-board__cell {
+    outline: transparent;
+    border: none;
+    margin: var(--cell-margin);
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    text-align: center;
+    /* border: 2px solid black; */
+}
+.sudoku-board__cell:focus{
+    outline: 2px solid  var(--focus-color-border);
+    background-color: var(--focus-color-field);
+}
