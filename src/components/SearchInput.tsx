@@ -9,6 +9,7 @@ import { pokemonApi } from "@/store/pokemonApi";
 import { Pokemon } from "@/types";
 import { useEffect } from "react";
 import Sudoku from "./sudoku/Sudoku";
+import SudokuGame from "./sudoku/Two-Sudoku";
 
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
@@ -29,6 +30,8 @@ const SearchInput = () => {
 
   return (
     <div>
+      <SudokuGame />
+      <hr />
       <input
         type="text"
         value={search}

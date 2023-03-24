@@ -56,15 +56,64 @@
     height: 3rem;
     font-size: 1.5rem;
     text-align: center;
-    /* border: 2px solid black; */
+   
 }
 .sudoku-board__cell:focus{
     outline: 2px solid  var(--focus-color-border);
     background-color: var(--focus-color-field);
 }
+
 .sudoku-board__cell:disabled{
     background-color: rgb(208, 238, 198);
  
+}
+/*////////////////////////////////////////////////////////////////////*/
+
+.sudoku-board2{
+   display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+    background-color: rgb(221, 251, 249);
+}
+.sudoku-board__table2{
+   display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(59, 106, 201);
+    padding-right: 5px;
+}
+
+
+.sudoku-board__cell2{
+    outline: none;
+    border: 1px solid  rgb(133, 133, 244);
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    text-align: center;
+    background-color: rgb(206, 245, 239);
+}
+
+.sudoku-board__table-row2{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0 auto;
+    /* border: solid 2px red; */
+}
+.sudoku-board__table-row2:nth-child(3n -2)  {
+ 
+    padding-top: 5px
+}
+.sudoku-board__table-col2:nth-child(3n - 2)  {
+  
+    margin-left: 5px;
 }
 
  

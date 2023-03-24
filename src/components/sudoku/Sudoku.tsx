@@ -145,7 +145,7 @@ const Sudoku = () => {
                         >
                           <input
                             onChange={(e) => onInputChange(e, row, col)}
-                            value={sudokuArray && sudokuArray[row][col] === 0 ? '' : sudokuArray && sudokuArray[row][col]}
+                            value={sudokuArray && sudokuArray[row][col] === 0 ? '' : sudokuArray && sudokuArray[row][col]|| ''}
                             className={styles["sudoku-board__cell"]}
                             type="text"
                             disabled={sudokuArray && sudokuArray[row][col] !== 0}
